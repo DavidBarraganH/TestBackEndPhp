@@ -32,23 +32,25 @@ class Hoteles extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nombre', 'nit', 'direccion', 'num_habitaciones'], 'required', 'message' => '{attribute} es requerido'],
+            [['nombre', 'nit', 'direccion', 'num_habitaciones','ciudad'], 'required', 'message' => '{attribute} es requerido'],
             [['fecha_creacion'], 'required', 'message' => 'No hay una fecha de creación', 'on' =>['crear_hotel']],
             [['fecha_actualizacion'], 'required', 'message' => 'No hay una fecha de actualizacion', 'on' =>['modificar_hotel']],
             [['num_habitaciones'], 'default', 'value' => null],
             [['num_habitaciones'], 'integer'],
             [['fecha_creacion', 'fecha_actualizacion'], 'safe'],
-            [['nombre', 'direccion'], 'string', 'max' => 45],
+            [['nombre', 'direccion', 'ciudad'], 'string', 'max' => 45],
             [['nit'], 'string', 'max' => 10],
             [['estado'], 'string', 'max' => 8],
-            ['nombre', 'validaHotel', 'on' =>['crear_hotel']]
+            [['ciudad'], 'string', 'max' => 60],
+            ['nombre', 'validaHotel', 'on' =>['crear_hotel']],
+            [['nombre'], 'unique', 'message' => 'El nombre de este hotel ya esta en uso', 'on' =>['crear_hotel']],
         ];
     }
 
     public function scenarios(){
         $scenarios = parent::scenarios();
-        $scenarios['crear_hotel'] = ['nombre', 'nit','direccion', 'num_habitaciones', 'fecha_creacion'];
-        $scenarios['modificar_hotel'] = ['nombre', 'nit','direccion', 'num_habitaciones', 'fecha_actualizacion'];
+        $scenarios['crear_hotel'] = ['nombre', 'nit','direccion', 'num_habitaciones', 'fecha_creacion', 'ciudad'];
+        $scenarios['modificar_hotel'] = ['nombre', 'nit','direccion', 'num_habitaciones', 'fecha_actualizacion', 'ciudad'];
         return $scenarios;
     }
 
@@ -64,6 +66,7 @@ class Hoteles extends \yii\db\ActiveRecord
             'direccion' => 'Dirección',
             'num_habitaciones' => 'Número de Habitaciones',
             'estado' => 'Estado',
+            'ciudad' => 'Ciudad',
         ];
     }
 

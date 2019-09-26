@@ -121,13 +121,13 @@ class HabitacionController extends Controller{
                 $data =[
                     'status' => 'error',
                     'code' => '400',
-                    'error' => $validacion_habitacion
+                    'message' => $validacion_habitacion
                 ]; 
             }else if($validacion_hotel !=''){
                 $data =[
                     'status' => 'error',
                     'code' => '400',
-                    'error' => $validacion_hotel
+                    'message' => $validacion_hotel
                 ]; 
             }else{
                 $model->save();
@@ -135,14 +135,14 @@ class HabitacionController extends Controller{
                 $data =[
                     'status' => 'success',
                     'code' => '200',
-                    'message' => 'Registro de asignacion completa',
+                    'message' => 'Se han asignado las habitacion correctamente.',
                 ]; 
             }
         }else{
             $data =[
                 'status' => 'error',
                 'code' => '400',
-                'errors' => $model->getErrors()
+                'message' => $model->getErrors()
             ]; 
         }
 
@@ -218,7 +218,7 @@ class HabitacionController extends Controller{
                  $data =[
                     'status' => 'error',
                     'code' => '400',
-                    'error' => $model->getErrors(),
+                    'message' => $model->getErrors(),
                  ];
             }
         }else{

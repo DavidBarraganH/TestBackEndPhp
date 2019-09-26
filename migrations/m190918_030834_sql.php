@@ -19,9 +19,10 @@ class m190918_030834_sql extends Migration
             'nombre' => $this->string(45)->notNull(),
             'nit' => $this->string(10)->notNull(),
             'direccion' => $this->string(45)->notNull(),
+            'ciudad' => $this->string(70)->notNull(),
             'num_habitaciones' => $this->integer(5)->notNull(),
-            'fecha_creacion' => $this->timestamp(),
-            'fecha_actualizacion' => $this->timestamp(), 
+            'fecha_creacion' => $this->timestamp()->notNull(),
+            'fecha_actualizacion' => $this->timestamp()->null(), 
             'estado' => $this->string(8)->notNull()->defaultValue('Activo'),
         ]);
         

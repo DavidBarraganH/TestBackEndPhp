@@ -40,6 +40,7 @@ class HotelesController extends Controller
         $model = Hoteles::find()
         ->where('estado = :estado')
         ->addParams([':estado' => 'Activo'])
+        ->orderBy(['id_hotel'=>SORT_DESC])
         ->all();
 
         if(!empty($model)){
@@ -47,13 +48,14 @@ class HotelesController extends Controller
             $data =[
                 'status' => 'success',
                 'code' => '200',
-                'hoteles' => $model,
+                'message'=>'Hoteles Listados correctamente',
+                'details' => $model,
             ];
         }else{
             $data =[
                 'status' => 'error',
-                'code' => '400',
-                'message' => 'No se encontró ningún hotel',
+                'code' => '404',
+                'message' => 'No hay hoteles disponibles',
             ];
         }
 
@@ -73,7 +75,8 @@ class HotelesController extends Controller
             $data =[
                 'status' => 'success',
                 'code' => '200',
-                'hotel' => $model,
+                'message'=>'Hoteles Listados correctamente',
+                'details' => $model,
             ];
         }else{
             $data =[
@@ -96,6 +99,8 @@ class HotelesController extends Controller
         $request = Yii::$app->request;
         $hotel = json_decode($request->post('json'),true);
 
+
+
         $model = new Hoteles;
         $model->scenario = 'crear_hotel';
 
@@ -107,13 +112,13 @@ class HotelesController extends Controller
             $data =[
                 'status' => 'success',
                 'code' => '200',
-                'message' => 'Registro de hotel completa',
+                'message' => 'Hotel registrado correctamente',
             ]; 
         }else{
             $data =[
                 'status' => 'error',
                 'code' => '400',
-                'errors' => $model->getErrors()
+                'message' => $model->getErrors()
             ]; 
         }
         
@@ -146,7 +151,7 @@ class HotelesController extends Controller
                 $data =[
                     'status' => 'error',
                     'code' => '400',
-                    'errors' => $model->getErrors()
+                    'message' => $model->getErrors()
                 ]; 
             }
         }else{
