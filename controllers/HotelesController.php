@@ -44,7 +44,6 @@ class HotelesController extends Controller
         ->all();
 
         if(!empty($model)){
-            //$hoteles = ArrayHelper::map($model, 'id_hotel', 'nombre');
             $data =[
                 'status' => 'success',
                 'code' => '200',
